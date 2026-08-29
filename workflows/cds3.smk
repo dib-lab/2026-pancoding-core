@@ -11,7 +11,7 @@ MAG_NAMES = (mag_fasta_df
     )
 
 
-rule make_cds3:
+rule do_cds3:
     input:
         'outputs.cds3/mag-cds.sig.zip',
         'outputs.cds3/mag+gtdb.cds.sig.zip',
@@ -43,9 +43,10 @@ rule make_manysketch_csv:
     input:
         expand('outputs.cds3/prodigal/{n}.ffn', n=MAG_NAMES)
     output:
-        'outputs.cds3/mag-manysketch.csv'
+        touch("outputs.cds3/.prodigal.done")
     shell: """
-        scripts/make-prodigal-manysketch.py outputs.cds3/prodigal/ -o {output}
+        scripts/make-prodigal-manysketch.py outputs.cds3/prodigal/ -o \
+            outputs.cds3/mag-manysketch.csv
     """
 
 rule run_manysketch:
