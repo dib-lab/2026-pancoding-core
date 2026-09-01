@@ -2,3 +2,4 @@ gurobi.log
 outputs.*
 *~
 .snakemake
+.ipynb_checkpoints
