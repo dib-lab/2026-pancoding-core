@@ -1,3 +1,6 @@
+"""
+Build pancoding singlehash sketches and search with them.
+"""
 import polars as pl
 
 mag_fasta_df = (pl.read_csv(MAG_NAMES_FASTA)
