@@ -6,6 +6,7 @@ rule do_mapping:
         expand('outputs.mapping/cds-min50/{s}.cds3.min50.fa', s=CORE_NAMES),
         'outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
         expand('outputs.mapping/bams.cds3.min50.rand/{m}.x.all-dedup-95.depth.txt', m=RAND_METAG),
+        'outputs.mapping/cds-min50-singleclust/species_to_genes.csv',
 
 rule concat_cds:
     input:
@@ -117,4 +118,14 @@ rule map_rand_cds3_min50_depth:
     threads: 8
     shell: """
         samtools depth -aa {input.bam:q} {input.fa:q} > {output:q}
+    """
+
+rule demux_cds_sequences_by_species:
+    input:
+        dedup='outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
+        species_fa= expand('outputs.mapping/cds-min50/{s}.cds3.min50.fa', s=CORE_NAMES),
+    output:
+        'outputs.mapping/cds-min50-singleclust/species_to_genes.csv',
+    shell: """
+        scripts/demux-cds-sequences-by-species.py {input.dedup:q} --species {input.species_fa:q} -o {output}
     """

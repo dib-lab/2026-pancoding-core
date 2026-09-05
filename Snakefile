@@ -19,4 +19,5 @@ print(RAND_METAG[:3])
 
 include: "workflows/cds3.smk"
 include: "workflows/branchwater.smk"
+include: "workflows/intersections.smk"
 include: "workflows/mapping.smk"

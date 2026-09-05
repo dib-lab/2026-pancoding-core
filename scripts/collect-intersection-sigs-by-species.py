@@ -43,7 +43,10 @@ def main():
         metag = x[midpos + 3:]
         metags_set.add(metag)
 
-        assert ' s__' in species, species
+        # remove accession + 'singlehash'
+        species = " ".join(species.split(' ')[1:3])
+
+        assert species.startswith('s__'), species
 
         # track files by species
         species_d[species].append(filename)
