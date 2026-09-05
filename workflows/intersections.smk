@@ -33,4 +33,3 @@ rule intersection_do_fits_for_abund:
     shell: """
         scripts/fit-isect-abund.py {input:q} -o {output:q}
     """
-

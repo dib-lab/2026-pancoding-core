@@ -44,10 +44,8 @@ def main():
     n = 0
     for filename in args.filenames:
         for ss in sourmash.load_file_as_signatures(filename):
-            if n % 10 == 0:
-                print('...', n)
-            if n > 100:
-                break
+            if n % 100 == 0:
+                print('...', n, args.output_csv)
             metag, species, abund, _ = fit_isect(ss)
             xx.append(dict(metag=metag, species=species, abund=abund))
             n += 1
