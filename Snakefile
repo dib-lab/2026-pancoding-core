@@ -17,6 +17,11 @@ RAND_METAG = [ x.strip() for x in open('inputs.mapping/rand_subset.3216.100.txt'
 print(f'loaded {len(RAND_METAG)} metagenome names for rand mapping')
 print(RAND_METAG[:3])
 
+HIGHCOV_METAG = [ x.strip() for x in open('inputs.mapping/highcov-metags.txt') ]
+print(f'loaded {len(HIGHCOV_METAG)} metagenome names for highcov mapping')
+print(HIGHCOV_METAG[:3])
+
+
 include: "workflows/cds3.smk"
 include: "workflows/branchwater.smk"
 include: "workflows/intersections.smk"

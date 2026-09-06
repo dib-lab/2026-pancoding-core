@@ -1,13 +1,11 @@
 rule do_mapping:
     input:
-        expand('outputs.mapping/cds/{species}.cds.fa.gz', species=CORE_NAMES),
-        expand('outputs.mapping/cds-dedup-ident/{species}.cds.fa.gz', species=CORE_NAMES),
-        expand('outputs.mapping/minsig/{s}.cds3.min50.sig.zip', s=CORE_NAMES),
-        expand('outputs.mapping/cds-min50/{s}.cds3.min50.fa', s=CORE_NAMES),
         'outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
-        expand('outputs.mapping/bams.cds3.min50.rand/{m}.x.all-dedup-95.depth.txt', m=RAND_METAG),
+        'outputs.mapping/rand100-cds3.min50.depth.csv',
+        'outputs.mapping/highcov-cds3.min50.depth.csv',
         'outputs.mapping/cds-min50-singleclust/species_to_genes.csv',
 
+# build a collection of coding sequences for each species.
 rule concat_cds:
     input:
         mag_lin_csv=MAG_LIN_CSV,
@@ -27,6 +25,7 @@ rule concat_cds:
         gzip -9 outputs.mapping/cds/*.cds.fa
     """
 
+# deduplicate coding sequences at 100% identity.
 rule dedup_ident_cds:
     input:
         'outputs.mapping/cds/{species}.cds.fa.gz'
@@ -37,6 +36,7 @@ rule dedup_ident_cds:
         cd-hit -c 1.0 -i {input:q} -o {output:q} -T {threads} -M 5000
     """
 
+# make a manifest of the rand100 metagenomes.
 rule rand_metags_mf_csv:
     input:
         expand(GRIST_RAND100 + "sigs/{m}.trim.sig.zip", m=RAND_METAG)
@@ -46,6 +46,7 @@ rule rand_metags_mf_csv:
         sourmash sig collect --abspath -F csv -o {output} {input}
     """
 
+# remove hashes that are present in less than 50% of metagenomes.
 rule screen_min50:
     input:
         sig='inputs.branchwater/queries/{s}.cds3.sig.zip',
@@ -57,7 +58,7 @@ rule screen_min50:
             -m 50 -o {output:q} -k 21
     '''
 
-# get all the sequences correspondingg to the k-mers present in
+# get all the sequences corresponding to the k-mers present in
 # 50% of the rand collection of metagenomes: cds3.min50.fa.
 rule kmers_wc:
     input:
@@ -81,6 +82,7 @@ rule combine_minsig:
         cat {input:q} > {output:q}
     """
 
+# cluster all the cds3-min50 sequences at 95% ANI => deduplicate for mapping.
 rule cluster_all_minsig:
     input:
         'outputs.mapping/cds-min50/all.fa',
@@ -92,6 +94,7 @@ rule cluster_all_minsig:
         cd-hit -c 0.95 -i {input:q} -o {output.fa:q} -T {threads} -M 5000
     """
 
+# map trimmed reads from rand100 metagenomes to cds3 min50 dedup.
 rule map_index_rand_cds3_min50:
     input:
         fa='outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
@@ -106,8 +109,6 @@ rule map_index_rand_cds3_min50:
     """
 
 # calculate coverage txt files for all min50 dedup mappings.
-# this gives us direct read-to-gene breadth & depth info, to
-# be processed in a notebook.
 rule map_rand_cds3_min50_depth:
     input:
         bam='outputs.mapping/bams.cds3.min50.rand/{m}.x.all-dedup-95.bam',
@@ -120,6 +121,59 @@ rule map_rand_cds3_min50_depth:
         samtools depth -aa {input.bam:q} {input.fa:q} > {output:q}
     """
 
+# summarize rand100 depth files to CSV.
+rule summarize_rand_cds3_min50_depth:
+    input:
+        expand('outputs.mapping/bams.cds3.min50.rand/{m}.x.all-dedup-95.depth.txt',
+               m=RAND_METAG)
+    output:
+        'outputs.mapping/rand100-cds3.min50.depth.csv'
+    shell: """
+        scripts/summarize-mapping-depth-to-csv.py {input} -o {output}
+    """
+        
+
+# calculate coverage against an independent/non-overlapping set
+# of metagenomes (vs the rand100 set)
+rule map_index_highcov_cds:
+    input:
+        metag=GRIST_HIGHCOV + "trim/{m}.trim.fq.gz",
+        fa='outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
+    output:
+        bam='outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.bam',
+        bai='outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.bam.bai',
+    threads: 8
+    shell: """
+        minimap2 -ax sr -t {threads} {input.fa:q} {input.metag:q} | samtools view -b -F 4 - | samtools sort - > {output.bam:q}
+        samtools index {output.bam:q}
+    """
+
+# convert highcov mapping BAMs -> depth files
+rule map_highcov_cds3_min50_depth:
+    input:
+        fa='outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
+        bam='outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.bam',
+        bai='outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.bam.bai',
+    output:
+        'outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.depth.txt',
+    threads: 8
+    shell: """
+        samtools depth -aa {input.bam:q} {input.fa:q} > {output:q}
+    """
+
+# summarize all the highcov mapping depth files -> CSV
+rule summarize_highcov_cds3_min50_depth:
+    input:
+        expand('outputs.mapping/bams.cds3.min50.highcov/{m}.x.all-dedup-95.depth.txt',
+               m=HIGHCOV_METAG)
+    output:
+        'outputs.mapping/highcov-cds3.min50.depth.csv'
+    shell: """
+        scripts/summarize-mapping-depth-to-csv.py {input} -o {output}
+    """
+
+# calculate the mapping of cds3-min50-singleclust sequences to
+# species.
 rule demux_cds_sequences_by_species:
     input:
         dedup='outputs.mapping/cds-min50-singleclust/all-dedup-95.fa',
@@ -129,3 +183,4 @@ rule demux_cds_sequences_by_species:
     shell: """
         scripts/demux-cds-sequences-by-species.py {input.dedup:q} --species {input.species_fa:q} -o {output}
     """
+

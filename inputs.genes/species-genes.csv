@@ -1,0 +1,60 @@
+good,anchor,species,description,gene_name
+1,0,s__Lactobacillus amylovorus,BLAST match to peptidase T [Lactobacillus sp.],AtH2023_SRR11125358_MAG1_217_22
+1,0,s__Lactobacillus amylovorus,BLAST match to calcium-translocating P-type ATPase PMCA-type [Lactobacillus acidophilus],AtH2023_SRR17241544_MAG06_60_1
+1,1,s__Lactobacillus amylovorus,BLAST match to LD-transpeptidase family protein [Lactobacillus amylovorus],AtH2023_SRR8960431_MAG03_43_3
+1,0,s__Bariatricus sp004560705,BLAST match to competence protein ComEC family protein (also Bariatricus spp.),AtH2023_SRR17241619_MAG37_18_8
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR17241623_MAG06_3_11
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR8960301_MAG10_123_36
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR17241641_MAG31_88_1
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR17241681_MAG10_54_1
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR8960673_MAG08_57_36
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR17241638_MAG02_2_35
+1,1,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR11126084_MAG3_16_2
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR17241618_MAG38_23_4
+1,0,s__Mogibacterium_A kristiansenii,BLAST match to isolate genome,AtH2023_SRR8960301_MAG10_123_36
+1,0,s__Sodaliphilus sp004557565,malate dehydrogenase,AtH2023_SRR8960082_MAG05_330_3
+1,1,s__Sodaliphilus sp004557565,IG-like domain-containing protein,AtH2023_ERR3211826_MAG3_378_5
+1,0,s__Sodaliphilus sp004557565,GDP-L-fucose synthase,AtH2023_SRR7182046_MAG5_337_5
+1,0,s__Cryptobacteroides sp900546925,beta-ketoacyl-ACP synthase II,AtH2023_ERR1135365_MAG18_113_2
+1,0,s__Cryptobacteroides sp900546925,HAMP domain-containing sensor histidine kinase,AtH2023_ERR8314740_MAG4_252_4
+1,1,s__Cryptobacteroides sp900546925,Stealth CR1 domain-containing protein [Candidatus Cryptobacteroides sp.] ,AtH2023_SRR8960669_MAG08_76_1
+1,0,s__Prevotella sp000434975,hypothetical protein,AtH2023_SRR14369270_MAG08_9_3
+1,1,s__Prevotella sp000434975,efflux RND transporter permease subunit,AtH2023_SRR11489784_MAG01_15_2
+1,0,s__Prevotella sp000434975,hypothetical protein,AtH2023_SRR17241488_MAG10_88_5
+0,0,s__UBA2868 sp004552595,s__UBA2868 sp004552595.cds.min50.dedup.top50(1),AtH2023_SRR8960594_MAG07_75_1
+0,0,s__UBA2868 sp004552595,maybe not species specific,AtH2023_ERR1135378_MAG02_90_2
+0,0,s__UBA2868 sp004552595,DNA topoisomerase,AtH2023_SRR14369154_MAG04_58_2
+1,0,s__Prevotella sp002251295,polysaccharide biosynthesis C-terminal domain-containing protein,AtH2023_SRR5240749_MAG18_161_7
+1,0,s__Prevotella sp002251295,transcription-repair coupling factor,AtH2023_SRR5976187_MAG13_78_8
+1,0,s__Prevotella sp002251295,DUF4302 protein,AtH2023_SRR5976187_MAG13_53_6
+1,1,s__Prevotella sp002251295,YfnO,AtH2023_ERR3211937_MAG3_16_9
+1,1,s__Colivicinus sp002299675,RNA lysidine(34) synthetase TilS [Erysipelotrichaceae bacterium] ,AtH2023_SRR8960562_MAG17_38_11
+1,0,s__Colivicinus sp002299675,adenine deaminase [Erysipelotrichaceae bacterium] ,AtH2023_SRR11489776_MAG07_78_2
+1,0,s__Colivicinus sp002299675,AAA family ATPase [Solobacterium sp.] ,AtH2023_SRR8960514_MAG08_36_12
+1,0,s__Colivicinus sp002299675,proton-conducting transporter membrane subunit [Solobacterium sp.],AtH2023_SRR7182058_MAG4_50_23
+1,0,s__Colivicinus sp002299675,glycoside hydrolase family 1 protein [Solobacterium sp.] ,AtH2023_SRR8960921_MAG13_12_1
+1,0,s__Ornithospirochaeta sp022785155,pyruvate phosphate dikinase [Spirochaetales bacterium],AtH2023_SRR7182044_MAG5_95_12
+1,0,s__Ornithospirochaeta sp022785155,hypothetical protein [Spirochaetales bacterium] ,AtH2023_SRR7182044_MAG5_15_28
+1,0,s__Ornithospirochaeta sp022785155,porin family protein [Spirochaetales bacterium] ,AtH2023_SRR8960352_MAG02_50_5
+1,0,s__Ornithospirochaeta sp022785155,histidine--tRNA ligase [Candidatus Ornithospirochaeta sp.] ,AtH2023_SRR17241527_MAG34_286_2
+1,1,s__Ornithospirochaeta sp022785155,MATE family efflux transporter [Spirochaetales bacterium] ,AtH2023_SRR8960352_MAG02_188_9
+1,0,s__Cryptobacteroides sp000432655,DUF349 domain-containing protein [Bacteroides sp.] ,AtH2023_SRR17241510_MAG40_94_20
+1,0,s__Cryptobacteroides sp000432655,hypothetical protein [Bacteroides sp.] ,AtH2023_SRR17241638_MAG35_29_40
+1,0,s__Cryptobacteroides sp000432655,phospholipase D-like domain-containing protein [Candidatus Cryptobacteroides sp.] ,AtH2023_SRR17241510_MAG40_36_4
+1,0,s__Cryptobacteroides sp000432655,outer membrane protein assembly complex YaeT protein [Bacteroides sp. CAG:1060] ,AtH2023_SRR17241510_MAG40_35_10
+1,0,s__Cryptobacteroides sp000432655,PD-(D/E)XK nuclease family protein [Bacteroides sp.] ,AtH2023_SRR17241510_MAG40_8_10
+1,1,s__UBA2868 sp004552595,multiple monosaccharide ABC transporter permease [Lachnospiraceae] ,AtH2023_SRR8960594_MAG07_75_1
+1,0,s__UBA2868 sp004552595,type I DNA topoisomerase [Lachnospiraceae bacterium] ,AtH2023_SRR14369154_MAG04_58_2
+1,0,s__UBA2868 sp004552595,L-arabinose isomerase [Lachnospiraceae bacterium] ,AtH2023_ERR1135378_MAG02_90_2
+1,0,s__Cryptobacteroides sp034089285,oxaloacetate decarboxylase [Candidatus Cryptobacteroides sp.] ,AtH2023_SRR7182051_MAG7_8_77
+1,0,s__Cryptobacteroides sp034089285,aminomethyl-transferring glycine dehydrogenase subunit GcvPB [Bacteroidales bacterium] ,AtH2023_SRR8960434_MAG4_96_2
+1,1,s__Cryptobacteroides sp034089285,carbon starvation protein A [Bacteroidales bacterium] ,AtH2023_SRR5240726_MAG15_114_6
+1,0,s__Cryptobacteroides sp034089285,excinuclease ABC subunit UvrA [Bacteroidales bacterium] ,AtH2023_SRR5240726_MAG15_235_1
+1,0,s__Cryptobacteroides sp034089285,hypothetical protein [Candidatus Cryptobacteroides sp.] ,AtH2023_SRR8960911_MAG07_9_3
+1,0,s__Cryptobacteroides sp034089285, outer membrane beta-barrel protein [Candidatus Cryptobacteroides sp.] ,AtH2023_SRR10209687_MAG22_228_3
+1,0,s__Cryptobacteroides sp000434935, relA/SpoT family protein [Bacteroides sp. CAG:709] ,AtH2023_SRR17241638_MAG22_43_7
+1,1,s__Cryptobacteroides sp000434935,hypothetical protein [Bacteroides sp.] ,AtH2023_SRR8960403_MAG06_120_8
+1,0,s__Cryptobacteroides sp000434935,putative uncharacterized protein [Bacteroides sp. CAG:709] ,AtH2023_SRR17241635_MAG12_71_7
+1,0,s__Cryptobacteroides sp000434935,ATP-binding protein [Bacteroides sp.] ,AtH2023_SRR14369225_MAG28_11_73
+1,1,s__Floccifex porci,anaerobic ribonucleoside-triphosphate reductase [Lacrimispora indolis],AtH2023_SRR11126230_MAG2_46_3
+1,1,s__Fimisoma sp002320005,PEP/pyruvate-binding domain-containing protein [Bacillota bacterium] ,AtH2023_SRR8960631_MAG16_82_35
