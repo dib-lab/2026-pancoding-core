@@ -114,7 +114,7 @@ rule manysearch_mag_gtdb:
            {input.db} {input.manifest} -o {output.csv} -c {threads}
     """
 
-rule multisearch_gtdb:
+rule manysearch_gtdb:
     input:
         db=GTDB_SINGLETON_SIG_ZIP,
         manifest='3216.manifest.csv',
