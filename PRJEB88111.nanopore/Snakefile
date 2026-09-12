@@ -1,0 +1,46 @@
+import polars as pl
+runs_df = pl.read_csv('filereport_read_run_PRJEB88111-md5.tsv', separator='\t')
+
+ACCS = runs_df['run_accession'].to_list()
+
+rule all:
+    input:
+        expand('{acc}.fastq.gz', acc=ACCS),
+        expand('{acc}.fastq.gz.sig', acc=ACCS),
+        expand('{acc}.sig.zip', acc=ACCS),
+        'PRJEB88111.mf.csv',
+
+rule dl:
+    params:
+        url=lambda w: runs_df.filter(pl.col('run_accession') == w.acc)['fastq_ftp'].head(1).item()
+    output:
+        '{acc}.fastq.gz'
+    shell:
+        'curl -LO {params.url}'
+
+rule sketch:
+    input:
+        '{acc}.fastq.gz',
+    output:
+        '{acc}.fastq.gz.sig',
+    shell: '''
+        sourmash sketch dna {input} -p k=21,k=31,k=51,dna,scaled=1000,abund
+    '''
+
+rule sketch_rename_cat:
+    input:
+        '{acc}.fastq.gz.sig',
+    output:
+        '{acc}.sig.zip',
+    shell: '''
+        sourmash sig rename {input} {wildcards.acc} -o {output}
+    '''
+
+rule mf:
+    input:
+        expand('{acc}.sig.zip', acc=ACCS),
+    output:
+        'PRJEB88111.mf.csv',
+    shell: """
+        sourmash sig collect -F csv {input} -o {output}
+    """
