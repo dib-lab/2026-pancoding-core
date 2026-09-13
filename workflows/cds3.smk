@@ -22,6 +22,8 @@ rule do_cds3:
         'outputs.cds3/gtdb.cds3.x.3216.manysearch.csv',
         'outputs.cds3/mag+gtdb.cds3.x.3216.manysearch.csv',
         'outputs.cds3/mag+gtdb.cds.singleton.describe.csv',
+        'outputs.cds3/pq/gtdb.cds3.x.3216.manysearch.parquet',
+        'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet',
 
 # retrieve the fasta for wildcards.g, where g is a MAG ident
 def _get_mag_fasta_path(w):
@@ -124,4 +126,22 @@ rule manysearch_gtdb:
     shell: """
         sourmash scripts manysearch -k 21 --scaled=1000 --threshold=0 \
            {input.db} {input.manifest} -o {output.csv} -c {threads}
+    """
+
+rule manysearch_gtdb_parquet:
+    input:
+        'outputs.cds3/gtdb.cds3.x.3216.manysearch.csv'
+    output:
+        'outputs.cds3/pq/gtdb.cds3.x.3216.manysearch.parquet'
+    shell: """
+        scripts/csv-to-parquet.py {input} -o outputs.cds3/pq
+    """
+
+rule manysearch_gtdb_mags_parquet:
+    input:
+        'outputs.cds3/mag+gtdb.cds3.x.3216.manysearch.csv'
+    output:
+        'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet'
+    shell: """
+        scripts/csv-to-parquet.py {input} -o outputs.cds3/pq
     """

@@ -3,12 +3,16 @@ runs_df = pl.read_csv('filereport_read_run_PRJEB88111-md5.tsv', separator='\t')
 
 ACCS = runs_df['run_accession'].to_list()
 
+wildcard_constraints:
+    acc="[^.]+"
+
 rule all:
     input:
         expand('{acc}.fastq.gz', acc=ACCS),
         expand('{acc}.fastq.gz.sig', acc=ACCS),
         expand('{acc}.sig.zip', acc=ACCS),
         'PRJEB88111.mf.csv',
+        expand('reps/bams/{acc}.x.all-core.depth.csv', acc=ACCS)
 
 rule dl:
     params:
@@ -43,4 +47,37 @@ rule mf:
         'PRJEB88111.mf.csv',
     shell: """
         sourmash sig collect -F csv {input} -o {output}
+    """
+
+rule map:
+    input:
+        fastq="{acc}.fastq.gz",
+        ref="reps/all-core.fa",
+    output:
+        bam="reps/bams/{acc}.x.all-core.bam",
+        bai="reps/bams/{acc}.x.all-core.bam.bai",
+    threads: 8
+    shell: """
+        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} | \
+            samtools view -b -F 4 - | samtools sort - > {output.bam}
+        samtools index {output.bam}
+    """
+
+rule depth:
+    input:
+        bam="reps/bams/{acc}.x.all-core.bam",
+        fa='reps/all-core.fa',
+    output:
+        "reps/bams/{acc}.x.all-core.depth.txt",
+    shell: """
+        samtools depth -aa {input.bam} {input.fa} > {output}
+    """
+
+rule depth_csv:
+    input:
+        "reps/bams/{acc}.x.all-core.depth.txt"
+    output:
+        "reps/bams/{acc}.x.all-core.depth.csv",
+    shell: """
+        ../scripts/summarize-mapping-depth-to-csv.py {input} -o {output}
     """
