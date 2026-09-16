@@ -1,4 +1,5 @@
 # note: --keep-incomplete
+import polars as pl
 
 CORE_NAMES=[ x.strip() for x in open('inputs.branchwater/names.list') ]
 
@@ -26,3 +27,4 @@ include: "workflows/cds3.smk"
 include: "workflows/branchwater.smk"
 include: "workflows/intersections.smk"
 include: "workflows/mapping.smk"
+include: "workflows/PRJEB88111.nanopore.smk"
