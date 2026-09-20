@@ -24,6 +24,8 @@ rule do_cds3:
         'outputs.cds3/mag+gtdb.cds.singleton.describe.csv',
         'outputs.cds3/pq/gtdb.cds3.x.3216.manysearch.parquet',
         'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet',
+        'outputs.cds3/mag+gtdb.cds3.x.3216.filtered.csv',
+        'outputs.cds3/gtdb.cds3.x.3216.filtered.csv',
 
 # retrieve the fasta for wildcards.g, where g is a MAG ident
 def _get_mag_fasta_path(w):
@@ -144,4 +146,23 @@ rule manysearch_gtdb_mags_parquet:
         'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet'
     shell: """
         scripts/csv-to-parquet.py {input} -o outputs.cds3/pq
+    """
+
+rule summarize_by_query_mags:
+    input:
+        'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet'
+    output:
+        'outputs.cds3/mag+gtdb.cds3.x.3216.filtered.csv'
+    shell: """
+        scripts/summarize-manysearch-by-query.py {input} -o {output}
+    """
+
+
+rule summarize_by_query_gtdb:
+    input:
+        'outputs.cds3/pq/gtdb.cds3.x.3216.manysearch.parquet'
+    output:
+        'outputs.cds3/gtdb.cds3.x.3216.filtered.csv'
+    shell: """
+        scripts/summarize-manysearch-by-query.py {input} -o {output}
     """

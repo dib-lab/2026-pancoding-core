@@ -4,7 +4,7 @@ rule do_intersections:
 
 rule intersection_explosion:
     input:
-        queries=expand('inputs.branchwater/queries/{s}.sig.zip',
+        queries=expand('inputs.branchwater/queries/gtdb+mags.{s}.sig.zip',
                        s=CORE_NAMES),
         metag='3216-sigs.txt',
     output:
