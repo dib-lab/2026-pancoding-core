@@ -11,18 +11,18 @@ rule concat_cds:
         mag_lin_csv=MAG_LIN_CSV,
     params:
         mag_prodigal='outputs.cds3/prodigal/',
-        gtdb_prodigal='~/scratch3/2026-gtdb-dl-prodigal',
+        gtdb_prodigal='~/scratch3/2026-gtdb-dl/prodigal',
         gtdb_lincsv=GTDB_LIN_CSV,
         outdir='outputs.mapping/cds',
     output:
         expand('outputs.mapping/cds/{species}.cds.fa.gz', species=CORE_NAMES),
+        summary_csv='outputs.mapping/species-to-ffn-summary.csv'
     shell: """
         scripts/extract-species-cds-from-prodigal.py \
             --prodigal {params.mag_prodigal} {params.gtdb_prodigal} \
            --tax {input.mag_lin_csv} {params.gtdb_lincsv} \
-           --species inputs.branchwater/names.list -o {params.outdir}
-
-        gzip -9 outputs.mapping/cds/*.cds.fa
+           --species inputs.branchwater/names.list -o {params.outdir} \
+           --csv={output.summary_csv}
     """
 
 # deduplicate coding sequences at 100% identity.

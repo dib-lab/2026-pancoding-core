@@ -12,14 +12,19 @@ import polars as pl
 import os
 import screed
 import gzip
+import polars as pl
 
 
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--prodigal-dirs', nargs='+', required=True)
     p.add_argument('--taxonomy-csvs', nargs='+', required=True)
-    p.add_argument('-o', '--output-dir', required=True)
-    p.add_argument('--species-list', required=True)
+    p.add_argument('-o', '--output-dir', required=True,
+                   help="output concatenated CDS gzip files here")
+    p.add_argument('--species-list', required=True,
+                   help="list of species")
+    p.add_argument('--csv-summary', required=True, type=str,
+                   help="output a CSV summary here")
     args = p.parse_args()
 
     SPECIES=[ x.strip() for x in open(args.species_list) ]
@@ -37,17 +42,27 @@ def main():
     for dirname in args.prodigal_dirs:
         p = pathlib.Path(dirname)
         ffn_files = p.glob('**/*.ffn')
+        n = None
         for n, pp in enumerate(ffn_files):
             if n % 10000 == 0:
-                print(f'{dirname} {n}')
+                print(f'reading: {dirname} (at {n})')
             ident = pp.name.rsplit('.', 1)[0]
             assert ident not in ident_to_ffn, ident
             ident_to_ffn[ident] = pp.absolute()
 
             if n == 0:
-                print(ident, ident_to_ffn[ident])
+                print('example found:', ident, ident_to_ffn[ident])
+
+        if n is None:
+            print(f"ERROR: '{dirname}' was empty of prodigal files",
+                  file=sys.stderr)
+            sys.exit(-1)
 
     print(f'loaded {len(ident_to_ffn)} idents -> ffn files.')
+
+    if len(ident_to_ffn) == 0:
+        print("ERROR: loaded no ident-to-ffn mappings!?")
+        sys.exit(-1)
 
     seen = set()
     species_to_idents = defaultdict(list)
@@ -65,17 +80,27 @@ def main():
     if not os.path.isdir(args.output_dir):
         os.mkdir(args.output_dir)
 
+    summary_xx = []
     for species in SPECIES:
         ident_xx = species_to_idents[species]
         print(f'{species} - {len(ident_xx)} genomes.')
-        outpath = f'{args.output_dir}/{species}.cds.fa'
-        with open(outpath, 'wt') as fp:
+        outpath = f'{args.output_dir}/{species}.cds.fa.gz'
+
+        with gzip.open(outpath, 'wt') as fp:
             for ident in ident_xx:
                 print('...', ident)
                 ffn_file = ident_to_ffn[ident]
+
                 with open(ffn_file, 'r') as infp:
                     data = infp.read()
                     fp.write(data)
+
+                summary_xx.append(dict(species=species,
+                                       ident=ident,
+                                       ffn_file=str(ffn_file)))
+
+    summary_df = pl.DataFrame(summary_xx)
+    summary_df.write_csv(args.csv_summary)
 
 
 if __name__ == '__main__':
