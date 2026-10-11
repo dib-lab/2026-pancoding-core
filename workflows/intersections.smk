@@ -25,11 +25,21 @@ rule intersection_collect:
              -o outputs.isect/3216_isect.collect.d/
     """
 
+rule intersections_kmer_stats:
+    input:
+        expand('outputs.isect/3216_isect.collect.d/{s}.collected.sig.zip',
+               s=CORE_NAMES)
+    output:
+        'outputs.isect/3216_kmer_stats.csv'
+    shell: """
+        scripts/isect-extract-kmer-stats.py {input:q} -o {output:q}
+    """
+
 rule intersection_do_fits_for_abund:
     input:
         'outputs.isect/3216_isect.collect.d/{s}.collected.sig.zip'
     output:
         'outputs.isect/{s}.isect.abund.csv'
     shell: """
-        scripts/fit-isect-abund.py {input:q} -o {output:q}
+        scripts/fit-isect-abund-experimental.py {input:q} -o {output:q}
     """
