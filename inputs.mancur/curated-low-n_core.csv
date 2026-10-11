@@ -1,0 +1,64 @@
+acc,include,n_core,bioproject,organism,broad_cat,labelled_as_pig,curated,curator,study_brief,is_actually_pig,is_pig_and_atypical,summary,description
+ERR3211747,1,3,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3211821,1,3,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3211822,1,4,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3211989,1,4,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3211990,1,4,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3212024,1,0,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3212025,1,0,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3212035,1,0,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+ERR3212036,1,0,PRJEB31650,pig gut metagenome,pig,1,1,CTB,explores effects of sample processing on metagenomics,0,0,not real samples: positive controls of mock community,a “pure” mock community containing none of the 17 microbial species we found
+SRR5240729,1,4,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed + cdiff
+SRR5240730,1,4,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed + cdiff
+SRR5240731,1,5,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed + cdiff
+SRR5240732,1,5,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed
+SRR5240734,1,4,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed
+SRR5240735,1,3,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,1,formula-fed piglets and/or cdiff,formula fed
+SRR5240737,1,7,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,-1,not clear,suckling pig 3
+SRR5240741,1,8,PRJNA373834,pig gut metagenome,pig,1,1,CTB,"explores weaning, formula feeding, and cdiff",1,-1,not clear,suckling pig 2
+SRR11489751,1,7,PRJNA408025,pig gut metagenome,pig,1,1,CTB,Find the difference of gut microbial community structure and function diversity under LDA exposure,1,1,LDA exposure,I-LDA9
+SRR11489765,1,6,PRJNA408025,pig gut metagenome,pig,1,1,CTB,Find the difference of gut microbial community structure and function diversity under LDA exposure,1,0,control,I-CON4
+SRR11489775,1,7,PRJNA408025,pig gut metagenome,pig,1,1,CTB,Find the difference of gut microbial community structure and function diversity under LDA exposure,1,0,control,I-CON10
+SRR7182060,1,4,PRJNA471402,pig gut metagenome,pig,1,1,CTB,monitor the effect of an antibiotic feed additive (oxytetracycline) at a therapeutic level on the dynamics of gut microbiota composition and resistome in post-weaned piglets over a 21 day period,1,-1,not clear,NGS_B.T6.d0.43367328
+SRR11124862,1,6,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14276
+SRR11125056,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14160
+SRR11125129,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,4-5 week piglet,Fe3/29864
+SRR11125218,1,6,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29951
+SRR11125250,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14277
+SRR11125388,1,8,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29792
+SRR11125952,1,7,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14276
+SRR11126196,1,6,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29951
+SRR11126298,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29793
+SRR11183344,1,6,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29951
+SRR11183533,1,8,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29792
+SRR11183578,1,6,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14276
+SRR11184046,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/14277
+SRR8960541,1,9,PRJNA526405,pig gut metagenome,pig,1,1,CTB,effect of antibiotics,1,-1,3-4 week piglets; a few samples,Ja31/29951
+SRR14369226,1,6,PRJNA629856,pig gut metagenome,pig,1,1,CTB,explores effect of weaning age on long-term development of pig gut microbiome,1,-1,not clear,H1P910W28FD007
+SRR12795729,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",saline control FMT
+SRR12795740,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",saline control
+SRR12795741,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795744,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795745,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795746,1,2,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795770,1,2,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795771,1,3,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795773,1,2,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795774,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",saline control
+SRR12795775,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795776,1,3,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT2
+SRR12795780,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR12795782,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR12795783,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR12795784,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR12795785,1,0,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",saline control
+SRR12795789,1,1,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR12795790,1,0,PRJNA668104,pig gut metagenome,pig,1,1,CTB,Donor-dependent fecal microbiota transplantation efficacy against necrotizing enterocolitis in preterm pigs,1,1,"preterm piglet, colon sample",FMT1
+SRR15057923,1,5,PRJNA741980,pig gut metagenome,pig,1,1,CTB,studying effect of antibiotics on whole and viral microbiome fractions,1,-1,not clear,"piglet, no antibiotic treatment"
+SRR18048901,1,8,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine4
+SRR18048902,1,8,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine3
+SRR18048903,1,7,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine2
+SRR18048904,1,4,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine1
+SRR18048908,1,9,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,0,all berberine supplementation had low core,Control3
+SRR18048909,1,9,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine6
+SRR18048910,1,9,PRJNA807368,pig gut metagenome,pig,1,1,CTB,berberine supplementation,1,1,all berberine supplementation had low core,Berberine5
