@@ -53,6 +53,8 @@ def main():
             size = row["n_hashes"]
             query_sizes[name] = size
 
+    print(f"loaded {len(query_sizes)} query sizes.")
+
     # load against sizes
     match_sizes = {}
     for afile in args.against:
@@ -64,8 +66,12 @@ def main():
             size = row["n_hashes"]
             match_sizes[name] = size
 
+    print(f"loaded {len(match_sizes)} match sizes.")
+
     xx = []
-    for row in df.iter_rows(named=True):
+    for n, row in enumerate(df.iter_rows(named=True)):
+        if n % 100000 == 0:
+            print(f'... processed {n} of {len(df)} manysearch rows')
         query_name = row["query_name"]
         match_name = row["match_name"]
         query_size = query_sizes[query_name]
@@ -75,6 +81,8 @@ def main():
         pval = p_of_match(query_size, match_size, intersect_hashes,
                           ksize, scaled)
         xx.append(dict(query_name=query_name, match_name=match_name, pval=pval))
+
+    print('done! merging.')
 
     pval_df = pl.DataFrame(xx)
 
