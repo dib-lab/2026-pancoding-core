@@ -1,3 +1,4 @@
+# SOURMASH-MANIFEST-VERSION: 1.0
 internal_location,md5,md5short,ksize,moltype,num,scaled,n_hashes,with_abundance,name,filename
 /group/ctbrowngrp5/wort/wort-sra/sigs/ERR1135178.sig,3719be763e0982c0aa06d2fa307b726f,3719be76,21,DNA,0,1000,1090604,True,ERR1135178,-
 /group/ctbrowngrp5/wort/wort-sra/sigs/ERR1135178.sig,5875b94b1bfe6eca3d79a19ffda63661,5875b94b,31,DNA,0,1000,1081657,True,ERR1135178,-

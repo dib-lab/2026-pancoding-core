@@ -26,6 +26,8 @@ rule do_cds3:
         'outputs.cds3/pq/mag+gtdb.cds3.x.3216.manysearch.parquet',
         'outputs.cds3/mag+gtdb.cds3.x.3216.filtered.csv',
         'outputs.cds3/gtdb.cds3.x.3216.filtered.csv',
+        'outputs.cds3/gtdb.cds3.x.3216.filtered.pvals.csv',
+        'outputs.cds3/mag+gtdb.cds3.x.3216.filtered.pvals.csv',
 
 # retrieve the fasta for wildcards.g, where g is a MAG ident
 def _get_mag_fasta_path(w):
@@ -165,4 +167,32 @@ rule summarize_by_query_gtdb:
         'outputs.cds3/gtdb.cds3.x.3216.filtered.csv'
     shell: """
         scripts/summarize-manysearch-by-query.py {input} -o {output}
+    """
+
+rule add_pvals_gtdb:
+    input:
+        csv='outputs.cds3/gtdb.cds3.x.3216.filtered.csv',
+        queries=GTDB_SINGLETON_SIG_ZIP,
+        against='3216.manifest.csv',
+    output:
+        csv='outputs.cds3/gtdb.cds3.x.3216.filtered.pvals.csv',
+        pq='outputs.cds3/gtdb.cds3.x.3216.filtered.pvals.parquet'
+    shell: """
+        scripts/add-pvals-to-manysearch.py {input.csv} \
+            --queries {input.queries} --against {input.against} \
+            -o {output.csv} -P {output.pq}
+    """
+
+rule add_pvals_mag_gtdb:
+    input:
+        csv='outputs.cds3/mag+gtdb.cds3.x.3216.filtered.csv',
+        queries='outputs.cds3/mag+gtdb.cds.singleton.sig.zip',
+        against='3216.manifest.csv',
+    output:
+        csv='outputs.cds3/mag+gtdb.cds3.x.3216.filtered.pvals.csv',
+        pq='outputs.cds3/mag+gtdb.cds3.x.3216.filtered.pvals.parquet'
+    shell: """
+        scripts/add-pvals-to-manysearch.py {input.csv} \
+            --queries {input.queries} --against {input.against} \
+            -o {output.csv} -P {output.pq}
     """
