@@ -2,8 +2,8 @@ rule do_branchwater:
     input:
         expand("outputs.branchwater/parquet/gtdb+mags.manysearch.{species}.parquet",
                species=CORE_NAMES),
-#        expand("outputs.branchwater/parquet/gtdb.manysearch.{species}.parquet",
-#               species=CORE_NAMES)
+        expand("outputs.branchwater/parquet/gtdb.manysearch.{species}.parquet",
+               species=CORE_NAMES)
 
 rule extract_cds3_sketches:
     input:
@@ -46,17 +46,28 @@ rule search_species:
             {input.q:q} {input.db:q} -o {output:q}
     """
 
-rule convert_manysearch_parquet:
+rule add_pvals_branch_mag_gtdb:
     input:
-        expand("outputs.branchwater/csv/gtdb+mags.manysearch.{species}.csv",
-               species=CORE_NAMES),
-        expand("outputs.branchwater/csv/gtdb.manysearch.{species}.csv",
-               species=CORE_NAMES),
+        csv="outputs.branchwater/csv/gtdb+mags.manysearch.{species}.csv",
+        queries='outputs.cds3/mag+gtdb.cds.singleton.sig.zip',
+        against='wort-703k.mf.csv',
     output:
-        expand("outputs.branchwater/parquet/gtdb+mags.manysearch.{species}.parquet",
-               species=CORE_NAMES),
-        expand("outputs.branchwater/parquet/gtdb.manysearch.{species}.parquet",
-               species=CORE_NAMES),
-    shell:
-        "scripts/csv-to-parquet.py {input:q} -o outputs.branchwater/parquet/"
+        pq='outputs.branchwater/parquet/gtdb+mags.manysearch.{species}.parquet',
+    shell: """
+        scripts/add-pvals-to-manysearch.py {input.csv:q} \
+            --queries {input.queries:q} --against {input.against:q} \
+            -P {output.pq:q} --remove-missing
+    """
 
+rule add_pvals_branch_gtdb:
+    input:
+        csv="outputs.branchwater/csv/gtdb.manysearch.{species}.csv",
+        queries=GTDB_SINGLETON_SIG_ZIP,
+        against='wort-703k.mf.csv',
+    output:
+        pq='outputs.branchwater/parquet/gtdb.manysearch.{species}.parquet',
+    shell: """
+        scripts/add-pvals-to-manysearch.py {input.csv:q} \
+            --queries {input.queries:q} --against {input.against:q} \
+            -P {output.pq:q} --remove-missing
+    """

@@ -22,12 +22,16 @@ def main():
                    required=True)
     p.add_argument('-o', '--output-csv')
     p.add_argument('-P', '--output-parquet')
+    p.add_argument('--remove-missing', action='store_true',
+                   help='remove rows with missing match sizes')
     args = p.parse_args()
 
     if not (args.output_csv or args.output_parquet):
         print("ERROR: no output specified!? Give either -o or -P",
               file=sys.stderr)
         sys.exit(-1)
+
+    missing_matches = set()
 
     df = pl.read_csv(args.manysearch_csv)
     print(f"loaded {len(df)} rows from '{args.manysearch_csv}'")
@@ -75,7 +79,16 @@ def main():
         query_name = row["query_name"]
         match_name = row["match_name"]
         query_size = query_sizes[query_name]
-        match_size = match_sizes[match_name]
+        match_size = match_sizes.get(match_name)
+
+        if match_size is None:
+            if args.remove_missing:
+                if match_name not in missing_matches:
+                    print(f'SKIPPING match {match_name} because no size available')
+                    missing_matches.add(match_name)
+                continue
+            else:
+                print(f'no size available for match {match_name}; exiting.')
 
         intersect_hashes = row["intersect_hashes"]
         pval = p_of_match(query_size, match_size, intersect_hashes,
@@ -86,11 +99,8 @@ def main():
 
     pval_df = pl.DataFrame(xx)
 
-    a = len(df)
     df = df.join(pval_df, on=['query_name', 'match_name'], how='inner',
                  validate="1:1")
-    b = len(df)
-    assert a == b, (a, b)
 
     if args.output_csv:
         print(f"wrote CSV to '{args.output_csv}'")
@@ -99,6 +109,9 @@ def main():
     if args.output_parquet:
         print(f"wrote parquet to '{args.output_parquet}'")
         df.write_parquet(args.output_parquet)
+
+    if missing_matches:
+        print(f'WARNING: skipped {len(missing_matches)} matches b/c no size available')
 
 
 if __name__ == '__main__':
