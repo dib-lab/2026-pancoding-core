@@ -39,7 +39,11 @@ rule intersection_do_fits_for_abund:
     input:
         'outputs.isect/3216_isect.collect.d/{s}.collected.sig.zip'
     output:
-        'outputs.isect/{s}.isect.abund.csv'
+        abund='outputs.isect/{s}.isect.abund.csv',
+        kmer='outputs.isect/{s}.kmer_stats.csv'
     shell: """
-        scripts/fit-isect-abund-experimental.py {input:q} -o {output:q}
+        #scripts/fit-isect-abund-experimental.py {input:q} -o {output:q}
+        scripts/isect-estimate-species-abundances.py {input:q} \
+            --output-kmer-stats-csv {output.kmer:q} \
+            --output-abund-estimates {output.abund:q}
     """
