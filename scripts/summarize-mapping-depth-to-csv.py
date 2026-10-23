@@ -1,4 +1,8 @@
 #! /usr/bin/env python
+"""
+Summarize samtools depth files (from short-read mapping) into depth estimates
+for each/all of the reference sequences.
+"""
 import sys
 import argparse
 import polars as pl
@@ -10,8 +14,22 @@ import screed
 
 
 def read_depth_txt(depth_file, *, exclude_ends):
+    """
+    Read an individual depth file in with polars, calculating:
+
+    - len (sliced length, excluding ends)
+    - cov (depth numbers for sliced portion)
+    - hits (number of bases 'hit' by a read in the sliced portion)
+
+    and then convert them into:
+    - depth_all (average across slice)
+    - depth_cov (average across hits)
+    - breadth (fraction hit)
+    """
     basename = os.path.basename(depth_file)
-    metag = basename.split('.')[0]
+    x_loc = basename.find('.x.')
+    assert x_loc > 0
+    metag = basename[:x_loc]
     
     df = (pl.scan_csv(depth_file,
                       separator='\t', has_header=False,
@@ -21,20 +39,19 @@ def read_depth_txt(depth_file, *, exclude_ends):
 
     sum_df = df.group_by('gene').all().with_columns(
         # select slice [75:-75]
-        (pl.col("pos").list.slice(exclude_ends, -exclude_ends).list.len()).alias("len"),
-        (pl.col("cov").list.slice(exclude_ends, -exclude_ends)),
-        (pl.col("cov").list.slice(exclude_ends, -exclude_ends).list.filter(pl.element() > 0)).list.len().alias("hits"),
+        len=(pl.col("pos").list.slice(exclude_ends, -exclude_ends).list.len()),
+        cov=(pl.col("cov").list.slice(exclude_ends, -exclude_ends)),
+        hits=((pl.col("cov").list.slice(exclude_ends, -exclude_ends).list.filter(pl.element() > 0)).list.len()),
     ).with_columns(
         (pl.lit(metag).alias("metag")),
         # summarize: average depth across contig,
-        (pl.col("cov").list.sum() / pl.col("len")).alias("depth_all"),
+        depth_all=(pl.col("cov").list.sum() / pl.col("len")),
         # average depth across covered bases,
-        (pl.col("cov").list.sum() / pl.col("hits")).alias("depth_cov"),
+        depth_cov=(pl.col("cov").list.sum() / pl.col("hits")),
         # fraction of bases covered
-        (pl.col("hits") / pl.col("cov").list.len()).alias("breadth"),
+        breadth=(pl.col("hits") / pl.col("cov").list.len()),
     ).select(["metag", "gene", "len", "hits",
               "breadth", "depth_all", "depth_cov"])
-    #xx_df = xx_df.join(seq_to_species_df, on='gene', how='inner')
     return sum_df
 
 def main():

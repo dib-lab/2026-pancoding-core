@@ -119,6 +119,7 @@ def main():
     p.add_argument('isect_zips', nargs='+')
     p.add_argument('--output-kmer-stats-csv', required=False)
     p.add_argument('--output-abund-estimates', required=True)
+    p.add_argument('--no-unmangle-names', action='store_true')
     args = p.parse_args()
 
     # load all the isects and calculate stuff -
@@ -140,10 +141,15 @@ def main():
 
             # basic k-mer stats: intersect_bp and weighted_bp
             assert ss.name.endswith(' isect')
-            species_with_acc, _, metag = ss.name[:-6].split('.')
-            species_with_singlehash  = species_with_acc.split(' ', 1)[1]
-            assert species_with_singlehash.endswith(' singlehash')
-            species = species_with_singlehash[:-len(' singlehash')]
+            # periods not allowed in species name :)
+            species_with_acc, _, metag = ss.name[:-6].split('.', 2)
+            if args.no_unmangle_names:
+                species = species_with_acc
+            else:
+                species_with_singlehash  = species_with_acc.split(' ', 1)[1]
+                assert species_with_singlehash.endswith(' singlehash')
+                species = species_with_singlehash[:-len(' singlehash')]
+
             mh = ss.minhash
             species_kmers_xx.append(dict(species=species, metag=metag,
                                          intersect_bp=len(mh) * mh.scaled,
@@ -170,7 +176,7 @@ def main():
 
     # second loop: 2 rounds of k-mer coverage fit
     for species_name in all_df['species'].unique():
-        xx_df = all_df.filter(pl.col('species') == species)
+        xx_df = all_df.filter(pl.col('species') == species_name)
 
         yfit, params, r2 = do_covcurve_fit(xx_df)
         (GSIZE, CEXP) = params
@@ -238,6 +244,9 @@ def main():
     est_df = pl.DataFrame(species_abund_est)
 
     unique_pairs = est_df.select(['species', 'metag']).unique()
+
+    with pl.Config(tbl_rows=-1):
+        print(unique_pairs.sort('metag'))
     
     for row in unique_pairs.iter_rows(named=True):
         species = row["species"]
