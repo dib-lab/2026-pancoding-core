@@ -12,6 +12,10 @@ from sklearn.mixture import GaussianMixture
 import scipy
 import collections
 
+# base coverage; adjust by ksize and readlen
+def base_cov(kmer_cov, *, ksize, readlen):
+    return kmer_cov * readlen / (readlen - ksize + 1)
+
 ### GMM Code.
 
 GMM_Peak = collections.namedtuple('GMM_Peak', ['idx', 'mean', 'weight', 'covariance'])
@@ -120,7 +124,11 @@ def main():
     p.add_argument('--output-kmer-stats-csv', required=False)
     p.add_argument('--output-abund-estimates', required=True)
     p.add_argument('--no-unmangle-names', action='store_true')
+    p.add_argument('-k', '--ksize', type=int, default=21)
+    p.add_argument('--read-length', type=int, default=150) # @CTB
     args = p.parse_args()
+
+    ksize = args.ksize
 
     # load all the isects and calculate stuff -
     # * record basic k-mer stats
@@ -133,7 +141,8 @@ def main():
         species_kmers_xx = []
         species_abund_est = []
 
-        for n, ss in enumerate(sourmash.load_file_as_signatures(filename)):
+        for n, ss in enumerate(sourmash.load_file_as_signatures(filename,
+                                                                ksize=ksize)):
             if n % 500 == 0:
                 print('...', n, os.path.basename(filename))
 #                if n > 0:
@@ -258,12 +267,19 @@ def main():
         assert len(curve_est) or len(gmm_est), (species, metag)
 
         if len(gmm_est):
-            composite_abund = gmm_est.select('abund').item()
+            composite_abund_k = gmm_est.select('abund').item()
         else:
-            composite_abund = curve_est.select('abund').item()
+            composite_abund_k = curve_est.select('abund').item()
 
         species_abund_est.append(dict(species=species, metag=metag,
-                                      abund=composite_abund, method='composite'))
+                                      abund=composite_abund_k,
+                                      method='composite_k'))
+
+        composite_abund = base_cov(composite_abund_k, ksize=ksize,
+                                   readlen=args.read_length)
+        species_abund_est.append(dict(species=species, metag=metag,
+                                      abund=composite_abund,
+                                      method='composite'))
 
     est_df = pl.DataFrame(species_abund_est)
     est_df.write_csv(args.output_abund_estimates)
